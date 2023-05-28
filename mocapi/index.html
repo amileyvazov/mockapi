@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="aditems">
+                <div class="col-md-4">
+                    <div class="item">
+                        <label for="">Name</label>
+                        <input id="name" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="item">
+                        <label for="">Image</label>
+                        <input id="avatar" type="text">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="item">
+                        <label for="">Text</label>
+                        <input id="text" type="text">
+                    </div>
+                </div>
+            </div>
+            <button>add</button>
+        </div>
+    </div>
+    <script>
+        let btn=document.querySelector("button")
+        btn.addEventListener("click",function(){
+            let url="https://64709d593de51400f7249cf4.mockapi.io/apilication/json/item"
+            fetch( url ,{
+                method:'POST',
+                headers:{
+                  'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    name:document.querySelector('#name').value,
+                    avatar:document.querySelector('#avatar').value,
+                    text:document.querySelector('#text').value
+                })
+            })
+            .then(url,{
+                name:document.querySelector('#name').value,
+                avatar:document.querySelector('#avatar').value,
+                text:document.querySelector('#text').value
+            })
+            .then(res=>res.json())
+            .then(res=>{
+                if(!res.ok){
+                    console.log('elave olundu');
+                    document.querySelector('#name').value='',
+                    document.querySelector('#avatar').value='',
+                    document.querySelector('#text').value=''
+                }
+                else{
+                    console.log('elave olunmadi');
+                }
+            })
+            .catch(err=>console.log(err))
+            
+        } )
+    </script>
+</body>
+</html>
